@@ -5,6 +5,10 @@
 *.so
 *.dylib
 
+closest-airport
+
+airports.go
+
 # Test binary, built with `go test -c`
 *.test
 
