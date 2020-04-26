@@ -1,4 +1,4 @@
-on: [push, create]
+on: [push]
 name: Build
 jobs:
   test:
