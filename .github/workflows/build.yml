@@ -24,12 +24,12 @@ jobs:
     - name: Run tests
       run: go test ./...
     - name: Check event
-      run: echo ${{ github.event_name }} ${{ github.event.ref_type }} ${{ github.event.ref }}
+      run: echo ${{ github.event_name }} - ${{ github.event.ref_type }} - ${{ github.event.ref }}
     - name: Create artifact
-      if: github.event_name == 'create' && github.event.ref_type == 'tag' && startsWith(github.event.ref, 'v')
+      if: startsWith(github.event.ref, 'refs/tags/v')
       run: tar czf closest-airport.tar.gz closest-airport
     - name: Create release
-      if: github.event_name == 'create' && github.event.ref_type == 'tag' && startsWith(github.event.ref, 'v')
+      if: startsWith(github.event.ref, 'refs/tags/v')
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -40,7 +40,7 @@ jobs:
         draft: false
         prerelease: false
     - name: Upload release asset
-      if: github.event_name == 'create' && github.event.ref_type == 'tag' && startsWith(github.event.ref, 'v')
+      if: startsWith(github.event.ref, 'refs/tags/v')
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
