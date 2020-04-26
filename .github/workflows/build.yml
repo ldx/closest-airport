@@ -14,7 +14,9 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v2
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      with:
+        fetch-depth: '0'
+    - run: git fetch origin +refs/tags/*:refs/tags/*
     - name: Build binary
       run: |
         export PATH=$PATH:$(go env GOPATH)/bin
