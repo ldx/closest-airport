@@ -15,7 +15,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Build binary
-      run: make
+      run: |
+      export PATH=$PATH:$(go env GOPATH)/bin
+      make
     - name: Run tests
       run: go test ./...
     - name: Create artifact
