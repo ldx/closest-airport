@@ -17,7 +17,7 @@ jobs:
     - name: Run tests
       run: go test ./...
     - name: Build binary
-      run: go build
+      run: make
     - name: Create artifact
       if: github.event_name == 'create' && github.event.ref_type == 'tag' && startsWith(github.event.ref, 'v')
       run: tar czf closest-airport.tar.gz closest-airport
