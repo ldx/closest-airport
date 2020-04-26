@@ -14,7 +14,7 @@ all: $(BINARIES)
 
 airports.go: data/airport-data.json
 	go get -u github.com/go-bindata/go-bindata/...
-	go-bindata -o airports.go data/
+	$(GOPATH)/bin/go-bindata -o airports.go data/
 
 closest-airport: $(SRC) $(GENERATED_SRC)
 	CGO_ENABLED=0 go build $(LDFLAGS) -o $(TOP_DIR)$@
