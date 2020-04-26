@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"math"
 	"os"
 	"strconv"
@@ -60,13 +59,13 @@ func getLocation() (*geoclue2.Location, error) {
 	return g.WaitForLocation(context.Background())
 }
 
-func getAirports(file string) ([]Airport, error) {
-	contents, err := ioutil.ReadFile(file)
+func getAirports() ([]Airport, error) {
+	AirportData, err := Asset("data/airport-data.json")
 	if err != nil {
 		return nil, err
 	}
 	var airports []Airport
-	err = json.Unmarshal(contents, &airports)
+	err = json.Unmarshal([]byte(AirportData), &airports)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +120,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	airports, err := getAirports("airport-codes-pp.json")
+	airports, err := getAirports()
 	if err != nil {
 		panic(err)
 	}

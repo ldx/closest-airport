@@ -12,8 +12,9 @@ GENERATED_SRC=airports.go
 
 all: $(BINARIES)
 
-airports.go: airports-data.json airports.tmpl
-	sed "s/__AIRPORTS_DATA__/$(cat airports-data.json)/" airports.tmpl > $@
+airports.go: data/airport-data.json
+	go get -u github.com/go-bindata/go-bindata/...
+	go-bindata -o airports.go data/
 
 closest-airport: $(SRC) $(GENERATED_SRC)
 	CGO_ENABLED=0 go build $(LDFLAGS) -o $(TOP_DIR)$@
